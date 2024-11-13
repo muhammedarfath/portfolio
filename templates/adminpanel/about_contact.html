@@ -1,0 +1,165 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>About and Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/adminhome.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .custom-profile-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .profile-image, .contact-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .profile-details {
+            padding: 20px;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .profile-subdescription, .profile-maindescription, .profile-references, 
+        .profile-email, .profile-whatsapp {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .edit-button-container {
+            margin-top: 15px;
+        }
+
+        .edit-button-container .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+                
+    </style>
+</head>
+
+<body>
+    <section>
+      <div class="container mt-5">
+        <h1 class="text-center mb-4">About and Contact Page</h1>
+
+          <!-- User Card -->
+          <div class="custom-profile-card">
+              <div class="row no-gutters">
+                  <!-- Profile Image Section -->
+                  <div class="col-md-4">
+                      {% if about.about_image %}
+                      <img src="{{ about.about_image.url }}" class="profile-image" alt="{{ about.name }}'s profile image" /> 
+                      {% endif %}
+                  </div>
+                  <!-- Contact Image Section -->
+                  <div class="col-md-4">
+                      {% if about.contact_image %}
+                      <img src="{{ about.contact_image.url }}" class="contact-image" alt="{{ about.name }}'s contact image" /> 
+                      {% endif %}
+                  </div>
+                  <div class="col-md-8">
+                      <div class="profile-details">
+                          <h1 class="profile-name">{{ about.name }}</h1>
+                          <p class="profile-subdescription">{{ about.subdescription }}</p>
+                          <hr/>
+                          <p class="profile-maindescription">{{ about.maindescription }}</p>
+                          <hr/>
+                          <p class="profile-references">{{ about.references }}</p>
+                          <hr/>
+                          <p class="profile-email">{{ about.email }}</p>
+                          <hr/>
+                          <p class="profile-whatsapp">{{ about.whatsapp }}</p>
+                          <hr/>
+                          <div class="edit-button-container">
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">
+                                  Edit Profile
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Profile Edit Modal -->
+          <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <form method="post" enctype="multipart/form-data" action="{% url 'adminpanel:edit_about' %}">
+                              {% csrf_token %}
+                              <div class="form-group">
+                                  <label for="name">Name</label>
+                                  <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" value="{{ about.name }}" required />
+                              </div>
+                              <div class="form-group">
+                                  <label for="subdescription">Sub-description</label>
+                                  <textarea name="subdescription" class="form-control" id="subdescription" rows="2" placeholder="Enter a short sub-description" required>{{ about.subdescription }}</textarea>
+                              </div>
+                              <div class="form-group">
+                                  <label for="maindescription">Main Description</label>
+                                  <textarea name="maindescription" class="form-control" id="maindescription" rows="4" placeholder="Enter a detailed description" required>{{ about.maindescription }}</textarea>
+                              </div>
+                              <div class="form-group">
+                                  <label for="references">References</label>
+                                  <textarea name="references" class="form-control" id="references" rows="2" placeholder="Enter references">{{ about.references }}</textarea>
+                              </div>
+                              <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" value="{{ about.email }}" required />
+                              </div>
+                              <div class="form-group">
+                                  <label for="whatsapp">WhatsApp</label>
+                                  <input type="text" name="whatsapp" class="form-control" id="whatsapp" placeholder="Enter WhatsApp number" value="{{ about.whatsapp }}" />
+                              </div>
+                              <div class="form-group">
+                                  <label for="image">About Image</label>
+                                  <input type="file" accept="image/png, image/jpeg, image/jpg" name="image" class="form-control-file" />
+                              </div>
+                              <div class="form-group">
+                                  <label for="contactimage">Contact Image</label>
+                                  <input type="file" accept="image/png, image/jpeg, image/jpg" name="contactimage" class="form-control-file" />
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                      Close
+                                  </button>
+                                  <button type="submit" name="edit_profile" class="btn btn-primary">
+                                      Save changes
+                                  </button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+      </div>    
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

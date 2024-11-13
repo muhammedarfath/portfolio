@@ -1,0 +1,473 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>About Me - Profile Edit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/adminhome.css' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+
+  </head>
+  <body>
+    <section>
+      <div class="container mt-5">
+
+
+        {% if messages %}
+        <div class="alert alert-success mt-4">
+          {% for message in messages %}
+          <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <form
+          action="{% url 'adminpanel:work' %}"
+          method="post"
+          class="dropzone"
+          id="myAwesomeDropzone"
+          data-plugin="dropzone"
+          data-previews-container="#file-previews"
+          data-upload-preview-template="#uploadPreviewTemplate"
+          enctype="multipart/form-data"
+          >
+          {% csrf_token %}
+          <div class="row">
+            <!-- Project Details Section -->
+            <div class="col-lg-7">
+              <div class="card">
+                <div class="card-header border-bottom border-dashed">
+                  <h4 class="card-title">Work-Page</h4>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="productName" class="form-label"
+                          >Work Name</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="productName"
+                          name="projectName"
+                          placeholder="Enter work name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="skuId" class="form-label"
+                          >Work Keyword</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="skuId"
+                          name="keyword"
+                          placeholder="Separate keywords with commas ','"
+                        />
+                      </div>
+                      
+                    </div>
+                    
+                    <div class="col-lg-12">
+                      <div class="mb-3">
+                        <label for="description" class="form-label"
+                          >Work Description</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          name="description"
+                          rows="7"
+                          placeholder="Short description about the product"
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="year"
+                          name="year"
+                          placeholder="Enter year"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                          <label for="company" class="form-label">Company</label>
+                          <input type="text" class="form-control" id="Company" name="company" placeholder="Enter Company Name" />
+                      </div>
+                  </div>
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="image" class="form-label">Hover Image</label>
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="file"
+                          name="image"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="col-lg-5">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="col-12">
+                          <input type="file" name="my_files" class="form-control-file" id="fileInput" accept="image/*,video/*" multiple required />
+                          <small class="text-muted">You can upload image and video files.</small>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-footer border-top border-dashed text-end">
+                  <button type="submit" name="submit" class="btn btn-primary">
+                      Add Project
+                  </button>
+              </div>
+          </div>
+          </div>
+        </form>
+
+<!-- Inside the loop for displaying projects -->
+<div class="row mt-4">
+  {% for project in projects %}
+  <div class="col-xxl-3 col-xl-4 col-md-6">
+    <div class="card">
+      <!-- Carousel for Files -->
+      {% if project.files_data %}
+      <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          {% for file in project.files_data %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              {% if file.is_video %}
+                <video class="mx-auto img-fluid" width="300" autoplay loop muted>
+                  <source src="{{ file.url }}" type="video/mp4" />
+                </video>
+              {% else %}
+                <img src="{{ file.url }}" class="img-fluid" alt="File" width="300" />
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ project.id }}" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      {% endif %}
+      
+      <div class="card-body border-top border-dashed">
+        <h4 class="fw-medium text-dark">{{ project.project_name }}</h4>
+        <p class="mb-0 mt-2">{{ project.description }}</p>
+        <p class="text-muted">Year: {{ project.year }}</p>
+        {% if project.hover_img %}
+        <img src="{{ project.hover_img.url }}" alt="{{ project.project_name }}" class="img-fluid hover-img " width="100">
+        {% endif %}
+        
+        <!-- Keywords Section -->
+        <div class="keyword-container mt-2">
+          {% if project.keywords_list %}
+            {% for keyword in project.keywords_list %}
+              <span class="keyword-tag">{{ keyword }}</span>
+            {% endfor %}
+          {% else %}
+            <span>No keywords available</span>
+          {% endif %}
+        </div>
+
+        <!-- Edit and Delete Buttons -->
+        <div class="mt-3">
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ project.id }}">
+            Edit
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ project.id }}">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+      
+      
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal{{ project.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ project.id }}" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel{{ project.id }}">Edit Project</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'adminpanel:edit_work_project' project.id %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="modal-body">
+                <label for="project_name" class="form-label">Project Name</label>
+                <input type="text" name="project_name" class="form-control" value="{{ project.project_name }}" required>
+
+                <label for="keyword" class="form-label mt-2">Keyword</label>
+                <input type="text" name="keyword" class="form-control" value="{{ project.keyword }}">
+
+                <label for="description" class="form-label mt-2">Description</label>
+                <textarea name="description" class="form-control" required>{{ project.description }}</textarea>
+
+                <label for="video" class="form-label mt-2">Video</label>
+                <input type="file" name="my_files" class="form-control" accept="video/*">
+
+                <label for="hover_img" class="form-label mt-2">Image</label>
+                <input type="file" name="hover_img" class="form-control" accept="image/*">
+
+                <label for="year" class="form-label mt-2">Year</label>
+                <input type="text" name="year" class="form-control" value="{{ project.year }}">
+                <div class="mt-3">
+                  <h5>Uploaded Files:</h5>
+                  <div class="files-container">
+                    {% for file in project.files_data %}                            
+                      <div class="file-item position-relative">
+                        {% if file.is_video %}
+                          <!-- Check if file is a video -->
+                          <video class="file-media" controls>
+                            <source src="{{ file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                          </video>
+                        {% elif file.url %}
+                          <!-- Check if file is an image or other media -->
+                          <img src="{{ file.url }}" alt="Project Image" class="file-media img-fluid" />
+                        {% else %}
+                          <p>No preview available for this file type.</p>
+                        {% endif %}
+                        
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 delete-file-btn" data-id="{{ file.id }}">
+                          <i class="bi bi-trash"></i>
+                      </button>
+                      </div>
+                    {% empty %}
+                      <p>No files uploaded yet.</p>
+                    {% endfor %}
+                  </div>
+                </div>
+                
+              
+            </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+      
+          <!-- Delete Modal -->
+          <div class="modal fade" id="deleteModal{{ project.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel">Delete Project</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete the project "{{ project.project_name }}"?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <a href="{% url 'adminpanel:delete_work_project' project.id %}" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          {% endfor %}
+      </div>
+      
+      <!-- container -->
+    </section>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="editProfileModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editProfileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              method="post"
+              enctype="multipart/form-data"
+              action="{% url 'adminpanel:edit_profile' %}"
+              >
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  id="name"
+                  placeholder="Enter your name"
+                  value="{{ profile.name }}"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  name="description"
+                  class="form-control"
+                  id="description"
+                  rows="3"
+                  placeholder="Enter a short description"
+                  required
+                >
+                {{ profile.description }}</textarea
+                >
+              </div>
+              <div class="form-group">
+                <label for="image">Profile Image</label>
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/jpg"
+                  name="image"
+                  class="form-control-file"
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  name="edit_profile"
+                  class="btn btn-primary"
+                >
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        // When the delete button is clicked, make an AJAX request to delete the file
+        $(document).on('click', '.btn-delete', function () {
+            var fileId = $(this).data('comment-id');  // Fetch the file ID to delete
+    
+            console.log("Deleting File ID: " + fileId);
+    
+            // Make AJAX request to delete the file
+            $.ajax({
+                url: '/adminpanel/deletefile/' + fileId + '/',  // Pass the file ID to the delete URL
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',  // Pass the CSRF token for security
+                },
+                success: function (data) {
+                    console.log("File Deleted successfully");
+                    // Remove the file element from the page
+                    $('div[data-comment-id="' + fileId + '"]').remove();  // Remove the file item from the DOM
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting file:", error);
+                }
+            });
+        });
+    });
+    
+    </script>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll(".delete-file-btn").forEach(button => {
+              button.addEventListener("click", function () {
+                  const fileId = this.getAttribute("data-id");
+  
+                  if (confirm("Are you sure you want to delete this file?")) {
+                      fetch(`/adminpanel/delete_file_work/${fileId}/`, {
+                          method: 'POST',
+                          headers: {
+                              'X-CSRFToken': '{{ csrf_token }}', 
+                              'Content-Type': 'application/json'
+                          },
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.success) {
+                              alert("File deleted successfully.");
+                              this.closest(".file-item").remove();  // Remove file from the DOM
+                          } else {
+                              alert("Error deleting file.");
+                          }
+                      })
+                      .catch(error => {
+                          console.error("Error:", error);
+                          alert("Error deleting file.");
+                      });
+                  }
+              });
+          });
+      });
+  </script>
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popp erjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

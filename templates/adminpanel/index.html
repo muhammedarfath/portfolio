@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Akbar Admin-panel</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/adminpanelhome.css' %}"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Akbar Portfolio</h1>
+      <p>
+        Update your portfolio images and content to give your website a fresh
+        look and improve its smoothness and functionality for a better user
+        experience.
+      </p>
+    </div>
+
+    <div class="row1-container">
+      <!-- Home Page Box -->
+
+        <div class="box box-down cyan" data-url={% url 'adminpanel:home' %}>
+          <h2>Home Page</h2>
+          <p>
+            Revamp your homepage to create a more engaging and user-friendly
+            experience.
+          </p>
+          <img
+            src="https://assets.codepen.io/2301174/icon-supervisor.svg"
+            alt=""
+          />
+        </div>
+
+      <!-- Work Page Box -->
+      <div class="box red" data-url={% url 'adminpanel:work' %}>
+        <h2>Work Page</h2>
+        <p>
+          Add your work and edit easily to create the optimal team for your
+          project.
+        </p>
+        <img
+          src="https://assets.codepen.io/2301174/icon-team-builder.svg"
+          alt=""
+        />
+      </div>
+
+      <div class="box box-down cyan" data-url={% url 'adminpanel:about_contact' %}>
+        <h2>About and Contact Page</h2>
+        <p>
+          Revamp your homepage to create a more engaging and user-friendly
+          experience.
+        </p>
+        <img
+          src="https://assets.codepen.io/2301174/icon-supervisor.svg"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <script>
+      // JavaScript for navigation on card click
+      document.querySelectorAll(".box").forEach((card) => {
+        card.addEventListener("click", () => {
+          const url = card.getAttribute("data-url");
+          window.open(url, "_blank");
+        });
+      });
+    </script>
+  </body>
+</html>
