@@ -2,6 +2,7 @@
 body {
     background-color: #f8f9fa; /* Light background for contrast */
     font-family: 'Arial', sans-serif; /* Clean font */
+    overflow-x: hidden;
 }
 
 .profile-card {
@@ -15,96 +16,238 @@ body {
 
 .button-container {
     position: absolute; /* Positioning within the card */
-    bottom: 20px; /* Distance from the bottom */
-    right: 20px; /* Distance from the right */
+    bottom: 20px;
+    left: 20px;
+    z-index: 2;
 }
 
-.btn-primary {
-    background-color: #007bff; /* Button background color */
-    border-color: #007bff; /* Button border color */
+.profile-image {
+    width: 100%; /* Ensure the profile image is full width */
+    height: auto;
+    object-fit: cover; /* Makes sure image maintains its aspect ratio */
 }
 
-.btn-primary:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    border-color: #0056b3; /* Darker border on hover */
+.card-body {
+    padding: 1.5rem;
 }
 
-/* Optional: Responsive styles */
-@media (max-width: 768px) {
-    .profile-card {
-        margin: 20px; /* Margin for smaller screens */
-    }
+.card-title {
+    font-size: 1.75rem;
+    font-weight: bold;
 }
 
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+}
 
-.text-muted {
-    
-    color: #6c757d; /* Ensure muted text has the same color */
+.alert {
+    margin-top: 20px;
+}
+
+form .row {
+    margin-bottom: 2rem;
+}
+
+.card {
+    margin-bottom: 2rem;
 }
 
 .dz-message {
-    background-color: #e9ecef; /* Light grey background */
-    border: 2px dashed #007bff; /* Primary color border */
-    padding: 30px; /* Padding for better spacing */
-    border-radius: 10px; /* Rounded corners */
-    text-align: center; /* Centered text */
-    cursor: pointer; /* Pointer cursor for clickable area */
+    text-align: center;
+    font-size: 1.25rem;
+    color: #495057;
+    padding: 2rem;
+    border: 2px dashed #dee2e6;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 .dz-message:hover {
-    background-color: #f1f1f1; /* Change background on hover */
+    background-color: #f1f1f1;
 }
 
+.dropzone-previews {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.dropzone-previews img,
+.dropzone-previews video {
+    width: 100%;
+    max-width: 300px; /* Set a max width to prevent very large images */
+    height: auto;
+    margin-top: 1rem;
+}
+
+.videoPreview {
+    max-width: 100%; /* Allow videos to take full width */
+}
+
+.card-footer {
+    background-color: #f1f3f5;
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.carousel-item {
+    text-align: center;
+}
+
+.carousel-inner img,
+.carousel-inner video {
+    width: 100%; /* Make sure media in the carousel takes full width */
+    height: auto;
+    max-width: 100%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #495057; /* Make navigation icons visible */
+}
+
+/* Additional responsive styles */
+@media (max-width: 768px) {
+    .profile-card .row {
+        flex-direction: column;
+    }
+
+    .profile-image {
+        height: auto; /* Allow the image to scale appropriately on small screens */
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .dz-message {
+        font-size: 1rem;
+    }
+
+    .dropzone-previews img,
+    .dropzone-previews video {
+        max-width: 100%; /* Make sure previews adjust properly */
+    }
+}
+
+.files-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.file-item {
+    flex: 1 1 calc(33.33% - 15px);  /* 3 items per row with gap */
+    max-width: 300px;  /* Optional, to limit the size of each item */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.file-media {
+    width: 100%;
+    height: 200px;  /* Fixed height for videos and images */
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;  /* Optional border between image/video and content */
+}
+
+
+.file-item {
+    border: 1px solid #ccc;
+    margin: 5px 0;
+    padding: 10px;
+    cursor: grab; /* Change cursor to indicate draggable item */
+  }
+  .file-item:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
+}
+
+
+/* Modal Background */
 .modal-content {
-    border-radius: 10px; /* Rounded corners for modal */
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border: none;
+    overflow: hidden;
 }
 
 .modal-header {
-    border-bottom: none; /* Remove border for a cleaner look */
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+}
+
+.modal-header .close {
+    color: white;
+    font-size: 1.5rem;
+    opacity: 1;
+}
+
+.modal-header .close:hover {
+    color: #ccc;
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.modal-body {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.modal-body .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-body label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.modal-body .form-control,
+.modal-body .form-control-file {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s ease;
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-control-file:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
 }
 
 .modal-footer {
-    border-top: none; /* Remove border for a cleaner look */
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
 }
 
-.btn-primary {
-    background-color: #007bff; /* Primary button color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded button corners */
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
 }
 
-.btn-danger {
-    border-radius: 5px; /* Rounded button corners */
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
 }
 
-@media (max-width: 768px) {
-    .profile-container {
-        flex-direction: column; /* Stack items on small screens */
-        align-items: flex-start; /* Align to start */
-    }
-    
-    .profile-container img {
-        margin-bottom: 10px; /* Space below image */
-    }
-    
-    .card {
-        margin: 10px 0; /* Margin for smaller screens */
-    }
-}
-
-
-.keyword-container {
-    display: flex; /* Use flexbox for a horizontal layout */
-    flex-wrap: wrap; /* Allow tags to wrap onto the next line */
-    gap: 8px; /* Space between tags */
-}
-
-.keyword-tag {
-    background-color: #007bff; /* Background color */
-    color: white; /* Text color */
-    padding: 5px 10px; /* Padding around the text */
-    border-radius: 20px; /* Rounded corners */
-    font-size: 0.875rem; /* Font size */
-    white-space: nowrap; /* Prevent text from wrapping */
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
 }
 
