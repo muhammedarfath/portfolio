@@ -110,7 +110,7 @@ body:hover .cursor {opacity:1.0;}
         <a href="{% url 'user:userhome' %}" class="navbar1_logo-link w-nav-brand"
           ><div class="logo-profiler-wrapper">
             <img
-            src="{% static 'cdn.prod.website-files.com/6527a38e362cc612868891e9/6527a38e362cc6128688927d_lala-pashayeva.webp' %}"
+            src="{% static 'cdn.prod.website-files.com/6527a38e362cc612868891e9/akbar.webp' %}"
             loading="lazy"
               sizes="(max-width: 767px) 48px, 64px"
               alt=""
@@ -221,8 +221,10 @@ body:hover .cursor {opacity:1.0;}
 		<div id="w-node-_62da67eb-fcfd-5366-112c-b3458c281803-868891fb" class="contact-grid-left">
 			<div data-w-id="64a2afac-de9d-83dc-7719-fb6e23463182" class="contact-grid-left-inner">
 				<div class="image-noise"></div>
+        {% if contact.contact_image %}
 				<img src={{contact.contact_image.url}} loading="lazy" sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 100vw" 
      alt="" class="image-cover"/>
+     {% endif %}
 			</div>
 		</div>
 		<div id="w-node-_62da67eb-fcfd-5366-112c-b3458c281806-868891fb" class="contact-grid-right">
