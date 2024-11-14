@@ -82,9 +82,12 @@ def worklist(request):
 def about(request):
     about = About.objects.order_by('-id').first() 
     references_list = [ref.strip() for ref in about.references.split(',')] if about.references else []
+    projects = HomepageProject.objects.all().prefetch_related('files')
+
     context = {
         'about': about,
-        'references_list': references_list
+        'references_list': references_list,
+        'projects':projects,
     }
     return render(request, 'user/about.html', context)
 

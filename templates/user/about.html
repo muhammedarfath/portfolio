@@ -218,13 +218,12 @@
                       <div class="menu-nav-item-text">Work</div>
                       <div class="menu-nav-item-text-hover">Work</div>
                     </div>
-                    </a
-                  >
+                  </a>
                   <a
                     href="{% url 'user:about' %}"
                     aria-current="page"
                     class="menu-nav-item _04 w-inline-block w--current"
-                    >
+                  >
                   </a>
                   <a
                     href="{% url 'user:contact' %}"
@@ -294,12 +293,11 @@
                 </div>
                 <div class="margin-bottom margin-medium">
                   <div class="heading-style-h3">
-                    Trusted by leading brands: A look at the companies that have
-                    benefited from my expertise.
+                    These are some of the well-known brands I have worked for.
                   </div>
                 </div>
                 <div class="about-references-grid">
-                  {% for reference in references_list %}
+                  {% for project in projects %}
                   <div
                     id="w-node-_3420bc95-30ca-5488-6575-2be91054f98d-868891f2"
                     class="button-group"
@@ -315,7 +313,11 @@
                         ></path>
                       </svg>
                     </div>
-                    <div class="heading-style-h4">{{ reference }}</div>
+                    <a href="{% url 'user:project_detail' project.id %}">
+                      <div class="heading-style-h4">
+                        {{ project.project_name }}
+                      </div>
+                    </a>
                   </div>
                   {% endfor %}
                 </div>
@@ -337,10 +339,36 @@
                     <div class="heading-style-h4">WhatsApp</div>
                     <div class="heading-style-h4">({{about.whatsapp}})</div>
                   </div>
-                  {% comment %} <div class="about-awards-table-item">
-                    <div class="heading-style-h4"></div>
-                    <div class="heading-style-h4"></div>
-                  </div> {% endcomment %}
+                  <div class="about-awards-table-item">
+                    <div class="heading-style-h4">LinkedIn</div>
+                    <div class="heading-style-h4">
+                      <a href="" target="_blank" rel="noopener noreferrer"
+                        >(akbar_shabeer)</a
+                      >
+                    </div>
+                  </div>
+                  <div class="about-awards-table-item">
+                    <div class="heading-style-h4">Instagram</div>
+                    <div class="heading-style-h4">
+                      <a
+                        href="https://www.instagram.com/akbar_shabeer/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >(akbar_shabeer)</a
+                      >
+                    </div>
+                  </div>
+                  <div class="about-awards-table-item">
+                    <div class="heading-style-h4">YouTube</div>
+                    <div class="heading-style-h4">
+                      <a
+                        href="https://www.youtube.com/@AkbarShabeer"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >(Akbar Shabeer)</a
+                      >
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
