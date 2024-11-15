@@ -65,18 +65,70 @@ def home(request):
 
     return render(request, 'adminpanel/home.html', context)
 
-
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
         if 'edit_profile' in request.POST:
             profile = UserProfile.objects.get(user=request.user)
-            profile.name = request.POST.get('name')
-            profile.description = request.POST.get('description')
-            if request.FILES.get('image'):
+            
+            new_name = request.POST.get('name', None)
+            if new_name and new_name != profile.name:
+                profile.name = new_name
+            
+            new_description = request.POST.get('description', None)
+            if new_description and new_description != profile.description:
+                profile.description = new_description
+            
+            # Handle Image Fields Properly
+            new_nav_image = request.FILES.get('nav_image', None)
+            if new_nav_image and new_nav_image != profile.nav_image:
+                if profile.nav_image:
+                    profile.nav_image.delete()  
+                profile.nav_image = new_nav_image
+
+            new_nav_hover_images1 = request.FILES.get('nav_hover_images1', None)
+            if new_nav_hover_images1 and new_nav_hover_images1 != profile.nav_hover_images1:
+                if profile.nav_hover_images1:
+                    profile.nav_hover_images1.delete()
+                profile.nav_hover_images1 = new_nav_hover_images1
+                
+            new_nav_hover_images2 = request.FILES.get('nav_hover_images2', None)
+            if new_nav_hover_images2 and new_nav_hover_images2 != profile.nav_hover_images2:
+                if profile.nav_hover_images2:
+                    profile.nav_hover_images2.delete()  
+                profile.nav_hover_images2 = new_nav_hover_images2      
+                         
+            new_nav_hover_images3 = request.FILES.get('nav_hover_images3', None)
+            if new_nav_hover_images3 and new_nav_hover_images3 != profile.nav_hover_images3:
+                if profile.nav_hover_images3:
+                    profile.nav_hover_images3.delete()  
+                profile.nav_hover_images3 = new_nav_hover_images3  
+                 
+            new_nav_body_images1 = request.FILES.get('nav_body_images1', None)
+            if new_nav_body_images1 and new_nav_body_images1 != profile.nav_body_images1:
+                if profile.nav_body_images1:
+                    profile.nav_body_images1.delete()
+                profile.nav_body_images1 = new_nav_body_images1
+                
+            new_nav_body_images2 = request.FILES.get('nav_body_images2', None)
+            if new_nav_body_images2 and new_nav_body_images2 != profile.nav_body_images2:
+                if profile.nav_body_images2:
+                    profile.nav_body_images2.delete() 
+                profile.nav_body_images2 = new_nav_body_images2      
+                
+            new_nav_body_images3 = request.FILES.get('nav_body_images3', None)
+            if new_nav_body_images3 and new_nav_body_images3 != profile.nav_body_images3:
+                if profile.nav_body_images3:
+                    profile.nav_body_images3.delete()
+                profile.nav_body_images3 = new_nav_body_images3                
+                
+            if 'image' in request.FILES:
+                if profile.profile_image:
+                    profile.profile_image.delete()  
                 profile.profile_image = request.FILES['image']
-            profile.save()  
-            return redirect('adminpanel:home')  
+            
+            profile.save()
+            return redirect('adminpanel:home')
 
 
 @login_required
@@ -400,14 +452,17 @@ def edit_about(request):
         about.name = request.POST.get('name')
         about.subdescription = request.POST.get('subdescription')
         about.maindescription = request.POST.get('maindescription')
-        about.references = request.POST.get('references')
+        # about.references = request.POST.get('references')
         about.email = request.POST.get('email')
         about.whatsapp = request.POST.get('whatsapp')
         if request.FILES.get('image'):
             about.about_image = request.FILES['image']
         if request.FILES.get('contactimage'):
-            about.about_image = request.FILES['contactimage']            
+            about.contact_image = request.FILES['contactimage']            
         about.save()
         return redirect('adminpanel:about_contact')
     else:
         return render(request, 'about_contact.html', {'about': about})
+    
+    
+    

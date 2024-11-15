@@ -88,6 +88,30 @@
         -moz-osx-font-smoothing: grayscale;
       }
     </style>
+    <style>
+      /* Image grid container */
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 images per row */
+        gap: 10px; /* Space between images */
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Adjust for tablets (3 images per row) */
+      @media (max-width: 768px) {
+        .image-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      /* Adjust for mobile devices (2 images per row) */
+      @media (max-width: 480px) {
+        .image-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
   </head>
   <body class="body">
     <div class="page-wrapper">
@@ -296,31 +320,24 @@
                     These are some of the well-known brands I have worked for.
                   </div>
                 </div>
-                <div class="about-references-grid">
+                <div class="image-grid">
                   {% for project in projects %}
-                  <div
-                    id="w-node-_3420bc95-30ca-5488-6575-2be91054f98d-868891f2"
-                    class="button-group"
-                  >
-                    <div class="icon-1x1-medium w-embed">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M14.5895 16.0032L5.98291 7.39664L7.39712 5.98242L16.0037 14.589V7.00324H18.0037V18.0032H7.00373V16.0032H14.5895Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <a href="{% url 'user:project_detail' project.id %}">
-                      <div class="heading-style-h4">
-                        {{ project.project_name }}
-                      </div>
-                    </a>
-                  </div>
+                  <a href="{% url 'user:project_detail' project.id %}">
+                    <img
+                      src="{{ project.hover_img.url }}"
+                      loading="lazy"
+                      alt=""
+                      style="
+                        width: 100%;
+                        height: auto;
+                        border-radius: 15%;
+                        object-fit: cover;
+                      "
+                    />
+                  </a>
                   {% endfor %}
                 </div>
+
                 <div class="margin-vertical margin-large">
                   <div class="line"></div>
                 </div>
@@ -331,45 +348,65 @@
                   <div class="heading-style-h3"></div>
                 </div>
                 <div class="about-awards-table">
-                  <div class="about-awards-table-item">
+                  <div 
+                    class="about-awards-table-item" 
+                    style="transition: text-decoration 0.3s;" 
+                    onmouseover="this.style.textDecoration='underline'" 
+                    onmouseout="this.style.textDecoration='none'"
+                  >
                     <div class="heading-style-h4">Email</div>
                     <div class="heading-style-h4">({{about.email}})</div>
                   </div>
-                  <div class="about-awards-table-item">
+                  <div 
+                    class="about-awards-table-item" 
+                    style="transition: text-decoration 0.3s;" 
+                    onmouseover="this.style.textDecoration='underline'" 
+                    onmouseout="this.style.textDecoration='none'"
+                  >
                     <div class="heading-style-h4">WhatsApp</div>
                     <div class="heading-style-h4">({{about.whatsapp}})</div>
                   </div>
-                  <div class="about-awards-table-item">
-                    <div class="heading-style-h4">LinkedIn</div>
-                    <div class="heading-style-h4">
-                      <a href="" target="_blank" rel="noopener noreferrer"
-                        >(akbar_shabeer)</a
-                      >
+                  <a 
+                    href="https://www.linkedin.com/in/akbar-shabeer/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style="text-decoration: none; transition: text-decoration 0.3s;"
+                    onmouseover="this.style.textDecoration='underline'" 
+                    onmouseout="this.style.textDecoration='none'"
+                  >
+                    <div class="about-awards-table-item">
+                      <div class="heading-style-h4">LinkedIn</div>
+                      <div class="heading-style-h4"></div>
                     </div>
-                  </div>
-                  <div class="about-awards-table-item">
-                    <div class="heading-style-h4">Instagram</div>
-                    <div class="heading-style-h4">
-                      <a
-                        href="https://www.instagram.com/akbar_shabeer/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >(akbar_shabeer)</a
-                      >
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/akbar_shabeer/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style="text-decoration: none; transition: text-decoration 0.3s;"
+                    onmouseover="this.style.textDecoration='underline'" 
+                    onmouseout="this.style.textDecoration='none'"
+                  >
+                    <div class="about-awards-table-item">
+                      <div class="heading-style-h4">Instagram</div>
+                      <div class="heading-style-h4"></div>
                     </div>
-                  </div>
-                  <div class="about-awards-table-item">
-                    <div class="heading-style-h4">YouTube</div>
-                    <div class="heading-style-h4">
-                      <a
-                        href="https://www.youtube.com/@AkbarShabeer"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >(Akbar Shabeer)</a
-                      >
+                  </a>
+                  <a 
+                    href="https://www.youtube.com/@AkbarShabeer" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style="text-decoration: none; transition: text-decoration 0.3s;"
+                    onmouseover="this.style.textDecoration='underline'" 
+                    onmouseout="this.style.textDecoration='none'"
+                  >
+                    <div class="about-awards-table-item">
+                      <div class="heading-style-h4">YouTube</div>
+                      <div class="heading-style-h4"></div>
                     </div>
-                  </div>
+                  </a>
                 </div>
+                
               </div>
             </div>
             <section class="section-cta-contact">

@@ -291,13 +291,23 @@
                 aria-current="page"
                 class="navbar1_logo-link w-nav-brand w--current"
                 ><div class="logo-profiler-wrapper">
+                  {% if navimage.nav_image %}
+                  <img
+                  src={{ navimage.nav_image.url }} loading="lazy"
+                  sizes="(max-width: 991px) 100vw, 112px"
+                  alt=""
+                  class="navbar1_logo"
+                />
+                {% else %}
                   <img
                     src="{% static 'cdn.prod.website-files.com/6527a38e362cc612868891e9/akbar.webp' %}"
                     loading="lazy"
                     sizes="(max-width: 991px) 100vw, 112px"
                     alt=""
                     class="navbar1_logo"
-                  /></div
+                  />
+                  {% endif %}
+                  </div
               ></a>
               <nav
                 role="navigation"

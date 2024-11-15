@@ -8,7 +8,12 @@ class UserProfile(models.Model):
     description = models.TextField(blank=True, null=True)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     nav_image = models.ImageField(upload_to='nav_images/', blank=True, null=True)
-    nav_hover_images = models.ImageField(upload_to='nav_hover_images/', blank=True, null=True)
+    nav_hover_images1 = models.ImageField(upload_to='nav_hover_images1/', blank=True, null=True)
+    nav_hover_images2 = models.ImageField(upload_to='nav_hover_images2/', blank=True, null=True)
+    nav_hover_images3 = models.ImageField(upload_to='nav_hover_images3/', blank=True, null=True)
+    nav_body_images1 = models.ImageField(upload_to='nav_body_images1/', blank=True, null=True)
+    nav_body_images2 = models.ImageField(upload_to='nav_body_images2/', blank=True, null=True)
+    nav_body_images3 = models.ImageField(upload_to='nav_body_images3/', blank=True, null=True)
     
     def __str__(self):
         return self.name

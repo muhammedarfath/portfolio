@@ -27,7 +27,11 @@ def userhome(request):
     context = {
         'profile': last_profile,
         'projects': projects,
-        'bottomprojects': bottomprojects  
+        'bottomprojects': bottomprojects,
+        'nav_hover_images1': last_profile.nav_hover_images1,
+        'nav_hover_images2': last_profile.nav_hover_images2,
+        'nav_hover_images3': last_profile.nav_hover_images3,  
+        
     }
     return render(request, 'user/userhome.html', context)
 
@@ -140,6 +144,7 @@ def moreworks(request, bottom_id):
     )
     
     
+
     
     
     
