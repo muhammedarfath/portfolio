@@ -299,11 +299,13 @@
                       </div>
                     </div>
                     <div class="subnav xsmall">
+                      {% if project.year != None %}
                       <div class="label">
                         <div class="label-text">
                           {{ project.year }}
                         </div>
                       </div>
+                      {%endif%}
                       <div class="w-dyn-list">
                         <div
                           role="list"

@@ -27,6 +27,7 @@
   </head>
 
   <body>
+    
     <div class="header">
       <h1>Akbar Portfolio</h1>
       <p>
@@ -86,5 +87,71 @@
         });
       });
     </script>
+    <!-- Loader HTML -->
+<div id="customLoader" style="
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: rgba(255, 255, 255, 0.8);
+z-index: 9999;
+display: none;
+justify-content: center;
+align-items: center;
+">
+<div style="text-align: center;">
+    <div style="
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    "></div>
+    <p style="margin-top: 10px; font-size: 16px; color: #007bff;">
+        Loading, please wait...
+    </p>
+</div>
+</div>
+
+<!-- Inline CSS Animation -->
+<style>
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>
+
+<!-- Inline JavaScript -->
+<script>
+// Show loader
+function showLoader() {
+    document.getElementById("customLoader").style.display = "flex";
+}
+
+// Hide loader
+function hideLoader() {
+    document.getElementById("customLoader").style.display = "none";
+}
+
+// Example: Show loader on form submission
+document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll("form");
+    forms.forEach((form) => {
+        form.addEventListener("submit", function () {
+            showLoader();
+        });
+    });
+});
+
+// Example: Hide loader on page load
+window.addEventListener("load", hideLoader);
+</script>
+
   </body>
 </html>

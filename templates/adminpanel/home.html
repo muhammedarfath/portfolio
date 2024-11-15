@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <!-- Loader HTML -->
+
+
     <section>
       <div class="container mt-5">
           <!--message toast-->
@@ -25,25 +28,82 @@
         
 
             <!--user card-->
-          <div class="card profile-card">
-              <div class="row no-gutters">
-                  <div class="col-md-4">
-                      {% if profile.profile_image %}
-                      <img src="{{ profile.profile_image.url }}" class="card-img profile-image" alt="{{ profile.name }}'s profile image" /> {% endif %}
-                  </div>
-                  <div class="col-md-8">
-                      <div class="card-body">
-                          <h1 class="card-title">{{ profile.name }}</h1>
-                          <p class="card-text">{{ profile.description }}</p>
-                          <div class="button-container">
-                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">
-                                  Edit Profile
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+<!-- user card -->
+<div class="card profile-card">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <!-- Larger profile image with inline style (Header Profile Image) -->
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" class="card-img" style="width: 100%; height: auto; max-width: 350px;" alt="{{ profile.name }}'s profile image" />
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h1 class="card-title">{{ profile.name }}</h1>
+                <p class="card-text">{{ profile.description }}</p>
+
+                <!-- Header Image Section -->
+                {% if profile.nav_image %}
+                <div class="mt-4">
+                    <h5>Header Profile Image:</h5>
+                    <img src="{{ profile.nav_image.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Header Profile Image" />
+                </div>
+                {% endif %}
+
+                <!-- Navbar Hover Images Section -->
+                <div class="mt-4">
+                    <h5>Navbar Hover Images:</h5>
+                    <div class="row">
+                        {% if profile.nav_hover_images1 %}
+                        <div class="col-4">
+                            <img src="{{ profile.nav_hover_images1.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Navbar Hover Image 1" />
+                        </div>
+                        {% endif %}
+                        {% if profile.nav_hover_images2 %}
+                        <div class="col-4">
+                            <img src="{{ profile.nav_hover_images2.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Navbar Hover Image 2" />
+                        </div>
+                        {% endif %}
+                        {% if profile.nav_hover_images3 %}
+                        <div class="col-4">
+                            <img src="{{ profile.nav_hover_images3.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Navbar Hover Image 3" />
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Work Hover Images Section -->
+                <div class="mt-4">
+                    <h5>Work Hover Images:</h5>
+                    <div class="row">
+                        {% if profile.nav_body_images1 %}
+                        <div class="col-4">
+                            <img src="{{ profile.nav_body_images1.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Work Hover Image 1" />
+                        </div>
+                        {% endif %}
+                        {% if profile.nav_body_images2 %}
+                        <div class="col-4">
+                            <img src="{{ profile.nav_body_images2.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Work Hover Image 2" />
+                        </div>
+                        {% endif %}
+                        {% if profile.nav_body_images3 %}
+                        <div class="col-4">
+                            <img src="{{ profile.nav_body_images3.url }}" class="card-img" style="width: 100%; height: auto; max-width: 100px;" alt="Work Hover Image 3" />
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="button-container mt-3">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal">
+                        Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
           <!--profile edit-modal-->
           <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
@@ -201,15 +261,15 @@
                             {% if project.files_data %}
                             <!-- Carousel for files (images or videos) -->
                             <div id="carousel{{ project.id }}" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
+                                <div class="carousel-inner" style="width: 300px; height: 250px; overflow: hidden;">
                                     {% for file in project.files_data %}
                                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                         {% if file.is_video %}
-                                        <video class="mx-auto img-fluid" width="300" autoplay loop muted>
+                                        <video class="mx-auto img-fluid" style="width: 300px; height: 250px; object-fit: cover;"  autoplay loop muted>
                                             <source src="{{ file.url }}" type="video/mp4" />
                                         </video>
                                         {% else %}
-                                        <img src="{{ file.url }}" class="img-fluid" alt="File" width="300" />
+                                        <img src="{{ file.url }}" class="img-fluid" alt="File" style="width: 300px; height: 250px; object-fit: cover;" />
                                         {% endif %}
                                     </div>
                                     {% endfor %}
@@ -231,7 +291,7 @@
                                 <p class="mb-0 mt-2">{{ project.description }}</p>
                                 <p class="text-muted">Year: {{ project.year }}</p>
                                 {% if project.hover_img %}
-                                <img src="{{ project.hover_img.url }}" alt="{{ project.project_name }}" class="img-fluid hover-img" width="100">
+                                <img src="{{ project.hover_img.url }}" alt="{{ project.project_name }}" class="img-fluid hover-img" style="width: 100px; height: 100px; object-fit: contain;">
                                 {% endif %}
 
                                 <!-- Keywords Section -->
@@ -589,6 +649,78 @@
             });
         });
     </script>
+    <div id="customLoader" style="
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background-color: rgba(255, 255, 255, 0.8);
+z-index: 9999;
+display: none;
+justify-content: center;
+align-items: center;
+">
+<div style="text-align: center;">
+    <div style="
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    "></div>
+    <p style="margin-top: 10px; font-size: 16px; color: #007bff;">
+        Processing, please wait...
+    </p>
+</div>
+</div>
+
+<!-- Inline CSS Animation -->
+<style>
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>
+
+<!-- Inline JavaScript -->
+<script>
+// Show loader
+function showLoader() {
+    document.getElementById("customLoader").style.display = "flex";
+}
+
+// Hide loader
+function hideLoader() {
+    document.getElementById("customLoader").style.display = "none";
+}
+
+// Show loader on form submission (for adding or editing)
+document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll("form");
+    forms.forEach((form) => {
+        form.addEventListener("submit", function () {
+            showLoader();
+        });
+    });
+
+    // Show loader on delete button click
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            showLoader();
+        });
+    });
+});
+
+// Example: Hide loader when the page is fully loaded (optional)
+window.addEventListener("load", hideLoader);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -325,8 +325,8 @@ def edit_work_project(request, project_id):
         project.project_name = request.POST.get('project_name')
         project.keyword = request.POST.get('keyword')
         project.description = request.POST.get('description')
-        project.year = request.POST.get('year')
-
+        year = request.POST.get('year')
+        project.year = int(year) if year and year.lower() != 'none' else None
         if request.FILES.get('hover_img'):
             project.hover_img = request.FILES.get('hover_img')
 
@@ -335,7 +335,6 @@ def edit_work_project(request, project_id):
         files = request.FILES.getlist('my_files') 
         print(files)
         for f in files:
-            # Create HomeProjectFile for each uploaded file
             ProjectFile.objects.create(project=project, file=f)
 
         messages.success(request, 'Project updated successfully!')
