@@ -4,22 +4,24 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    description = models.TextField()
+    name = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-
+    nav_image = models.ImageField(upload_to='nav_images/', blank=True, null=True)
+    nav_hover_images = models.ImageField(upload_to='nav_hover_images/', blank=True, null=True)
+    
     def __str__(self):
         return self.name
     
     
     
 class HomepageProject(models.Model):
-    project_name = models.CharField(max_length=255)
-    keyword = models.CharField(max_length=255)
-    description = models.TextField()
+    project_name = models.TextField(blank=True, null=True)
+    keyword = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     hover_img = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     year = models.PositiveIntegerField(blank=True, null=True) 
-    company = models.CharField(blank=True, null=True,max_length=255) 
+    company = models.TextField(blank=True, null=True) 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -38,12 +40,12 @@ class HomeProjectFile(models.Model):
 
 
 class WorkpageProject(models.Model):
-    project_name = models.CharField(max_length=255)
-    keyword = models.CharField(max_length=255)
-    description = models.TextField()
+    project_name = models.TextField(blank=True, null=True)
+    keyword = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     hover_img = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     year = models.PositiveIntegerField(blank=True, null=True) 
-    company = models.CharField(blank=True, null=True,max_length=255) 
+    company = models.TextField(blank=True, null=True) 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -51,7 +53,7 @@ class WorkpageProject(models.Model):
 
 class ProjectFile(models.Model):
     project = models.ForeignKey(WorkpageProject, related_name='files', on_delete=models.CASCADE)
-    file = models.FileField(upload_to='homepage_projects/videos/',max_length=500)
+    file = models.FileField(upload_to='homepage_projects/videos/')
     
     def __str__(self):
         return f'File for {self.project.project_name}'
@@ -59,8 +61,8 @@ class ProjectFile(models.Model):
     
     
 class BottomProject(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
+    name = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     hover_img = models.ImageField(upload_to='profile_images/', blank=True, null=True)
 
     def __str__(self):
@@ -78,12 +80,12 @@ class About(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     about_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     contact_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-    name = models.CharField(max_length=100) 
-    subdescription = models.CharField(max_length=255, blank=True, null=True)  
+    name = models.TextField(blank=True, null=True) 
+    subdescription = models.TextField(blank=True, null=True)  
     maindescription = models.TextField(blank=True, null=True)  
     references = models.TextField(blank=True, null=True)  
     email = models.EmailField(max_length=100, blank=True, null=True)  
-    whatsapp = models.CharField(max_length=15, blank=True, null=True)  
+    whatsapp = models.TextField(blank=True, null=True)  
 
     def __str__(self):
         return self.name  
