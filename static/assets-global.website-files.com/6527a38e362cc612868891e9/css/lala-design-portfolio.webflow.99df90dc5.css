@@ -6626,7 +6626,6 @@ figcaption {
 }
 
 .nav-cursor {
-  background-image: url("../../../d3e54v103j8qbb.cloudfront.net/img/background-image.svg");
   background-position: 0 0;
   background-size: auto;
   position: absolute;
@@ -7060,7 +7059,6 @@ figcaption {
   width: 3.5rem;
   height: 3.5rem;
   color: #fff;
-  background-image: url("../../../d3e54v103j8qbb.cloudfront.net/img/background-image.svg");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
