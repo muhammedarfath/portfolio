@@ -18,6 +18,22 @@
   </head>
   <body>
     <section>
+      <div class="go_page" style="margin-top: 40px; text-align: center;">
+        <a 
+            href={% url 'adminpanel:home' %}
+            class="btn btn-primary" 
+            style="display: inline-block; background-color: #4CAF50; color: white; text-decoration: none; border: none; padding: 10px 20px; border-radius: 5px; margin-right: 10px; cursor: pointer;">
+            Home
+        </a>
+        <a 
+            href={% url 'adminpanel:about_contact' %}
+            class="btn btn-secondary" 
+            data-dismiss="modal" 
+            style="display: inline-block; background-color: #f44336; color: white; text-decoration: none; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            About and Contact Page
+
+        </a>
+    </div>
       <div class="container mt-5">
 
 

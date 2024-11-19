@@ -56,6 +56,25 @@ def project_detail(request, project_id):
     return render(request, 'user/project_detail.html', {'project': project, 'files': files})
 
 
+def project_details_from_work(request, project_id):
+    project = get_object_or_404(WorkpageProject, id=project_id)
+    files = project.files.all()
+
+    project.first_file = files.first() if files else None
+    project.other_files = [
+        {
+            'url': file.file.url if file.file else '', 
+            'is_video': file.file.url.endswith('.mp4') if file.file else False
+        }
+        for file in files[1:] 
+    ]
+
+        
+    
+    project.keywords_list = [keyword.strip() for keyword in project.keyword.split(',')] if project.keyword else []
+
+    return render(request, 'user/project_detail.html', {'project': project, 'files': files})
+
 def worklist(request):
     projects = WorkpageProject.objects.all().prefetch_related('files')
     bottomprojects = BottomProject.objects.all().prefetch_related('files')

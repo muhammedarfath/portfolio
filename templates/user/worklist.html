@@ -73,13 +73,9 @@
       })(window, document);
     </script>
     <link
-      href="{% static 'cdn.prod.website-files.com/6527a38e362cc612868891e9/6527a38e362cc61286889280_Favicon.png' %}"
+      href={% static 'assets-global.website-files.com/6527a38e362cc612868891e9/logo round.png'%}
       rel="shortcut icon"
       type="image/x-icon"
-    />
-    <link
-      href="{% static 'cdn.prod.website-files.com/6527a38e362cc612868891e9/6527a38e362cc61286889281_Webclip.png' %}"
-      rel="apple-touch-icon"
     />
     <!-- Please keep this css code to improve the font quality-->
     <style>
@@ -251,7 +247,7 @@
 
               <div role="listitem" class="projects-work-item w-dyn-item">
                 <a
-                  href="{% url 'user:project_detail' project.id %}"
+                  href={% url 'user:project_details_from_work' project.id %}
                   class="project-work-image-wrapper w-inline-block"
                   ><div class="view-button-wrapper">
                     <div class="view-button large">
@@ -283,7 +279,7 @@
                 <div class="projects-work-item-content">
                   <a
                     id="w-node-e8271618-bced-3c1c-8583-e216c646fbf8-8688924b"
-                    href="work/blue-pottery.html"
+                    href={% url 'user:project_details_from_work' project.id %}
                     class="projects-work-item-link w-inline-block"
                     ><h2 class="heading-style-large">
                       {{ project.project_name }}
