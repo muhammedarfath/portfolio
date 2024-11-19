@@ -417,18 +417,38 @@
                     {% if bottom.first_file %}
                       {% if bottom.first_file.is_video %}
                         <!-- Display video if the file is a video -->
-                        <video class="image-cover" controls autoplay muted loop>
+                        <video 
+                          class="image-cover" 
+                          controls 
+                          autoplay 
+                          muted 
+                          loop 
+                          style="height: 600px; object-fit: cover; width: 100%;">
                           <source src="{{ bottom.first_file.file.url }}" type="video/mp4">
                         </video>
                       {% else %}
                         <!-- Display image if the file is not a video -->
-                        <img alt="" loading="lazy" src="{{ bottom.first_file.file.url }}" sizes="(max-width: 479px) 100vw, (max-width: 991px) 50vw, 33vw" class="image-cover" />
+                        <img 
+                          alt="" 
+                          loading="lazy" 
+                          src="{{ bottom.first_file.file.url }}" 
+                          sizes="(max-width: 479px) 100vw, (max-width: 991px) 50vw, 33vw" 
+                          class="image-cover" 
+                          style="height: 600px; object-fit: cover; width: 100%;" 
+                        />
                       {% endif %}
                     {% else %}
                       <!-- Placeholder image if there is no file -->
-                      <img alt="No Image Available" loading="lazy" src="path/to/placeholder-image.jpg" class="image-cover" />
+                      <img 
+                        alt="No Image Available" 
+                        loading="lazy" 
+                        src="path/to/placeholder-image.jpg" 
+                        class="image-cover" 
+                        style="height: 300px; object-fit: cover; width: 100%;" 
+                      />
                     {% endif %}
-                  </div></a>
+                  </div>
+                </a>
                 <div class="post-preview-item-content">
                   <div class="margin-bottom margin-xsmall">
                     <div class="text-gap">

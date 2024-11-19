@@ -136,8 +136,8 @@ def moreworks(request, bottom_id):
     project.first_file = files.first() if files else None
     project.first_file_is_video = project.first_file and project.first_file.file.url.endswith('.mp4')
     project.first_file_is_image = project.first_file and project.first_file.file.url.endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp'))
-    second_project = BottomProject.objects.all()
-    second_project = random.choice(second_project)
+    second_projects = BottomProject.objects.exclude(id=project.id)
+    second_project = random.choice(second_projects)
     second_project_first_file = second_project.files.first() 
     if second_project_first_file:
         second_project_first_file_info = {
