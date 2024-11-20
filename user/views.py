@@ -7,8 +7,8 @@ from adminpanel.models import About, BottomProject, UserProfile,HomepageProject,
 
 def userhome(request):
     last_profile = UserProfile.objects.order_by('-id').first() 
-    projects = HomepageProject.objects.all().prefetch_related('files')
-    bottomprojects = BottomProject.objects.all().prefetch_related('files')
+    projects = HomepageProject.objects.all().prefetch_related('files').order_by('id')
+    bottomprojects = BottomProject.objects.all().prefetch_related('files').order_by('id')
 
     for project in projects:
         project.keywords_list = [keyword.strip() for keyword in project.keyword.split(',')] if project.keyword else []
@@ -76,7 +76,7 @@ def project_details_from_work(request, project_id):
     return render(request, 'user/project_detail.html', {'project': project, 'files': files})
 
 def worklist(request):
-    projects = WorkpageProject.objects.all().prefetch_related('files')
+    projects = HomepageProject.objects.all().prefetch_related('files').order_by('id')
     bottomprojects = BottomProject.objects.all().prefetch_related('files')
 
     for project in projects:
@@ -105,7 +105,7 @@ def worklist(request):
 def about(request):
     about = About.objects.order_by('-id').first() 
     references_list = [ref.strip() for ref in about.references.split(',')] if about.references else []
-    projects = WorkpageProject.objects.all().prefetch_related('files')
+    projects = HomepageProject.objects.all().prefetch_related('files').order_by('id')
 
     context = {
         'about': about,

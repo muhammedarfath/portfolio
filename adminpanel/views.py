@@ -288,7 +288,7 @@ def work(request):
             messages.error(request, "One or more files have a filename that is too long. Please rename the files and try again.")
             return redirect('adminpanel:work')
    
-    projects = WorkpageProject.objects.all().prefetch_related('files')
+    projects = HomepageProject.objects.all().prefetch_related('files')
 
     for project in projects:
         project.keywords_list = [keyword.strip() for keyword in project.keyword.split(',')] if project.keyword else []
@@ -333,7 +333,6 @@ def edit_work_project(request, project_id):
         project.save() 
 
         files = request.FILES.getlist('my_files') 
-        print(files)
         for f in files:
             ProjectFile.objects.create(project=project, file=f)
 
@@ -454,6 +453,8 @@ def edit_about(request):
         # about.references = request.POST.get('references')
         about.email = request.POST.get('email')
         about.whatsapp = request.POST.get('whatsapp')
+        about.title = request.POST.get('title')
+        about.title_description = request.POST.get('title_description')
         if request.FILES.get('image'):
             about.about_image = request.FILES['image']
         if request.FILES.get('contactimage'):

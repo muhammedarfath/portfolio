@@ -247,7 +247,7 @@
 
               <div role="listitem" class="projects-work-item w-dyn-item">
                 <a
-                  href={% url 'user:project_details_from_work' project.id %}
+                  href={% url 'user:project_detail' project.id %}
                   class="project-work-image-wrapper w-inline-block"
                   ><div class="view-button-wrapper">
                     <div class="view-button large">
@@ -279,7 +279,7 @@
                 <div class="projects-work-item-content">
                   <a
                     id="w-node-e8271618-bced-3c1c-8583-e216c646fbf8-8688924b"
-                    href={% url 'user:project_details_from_work' project.id %}
+                    href={% url 'user:project_detail' project.id %}
                     class="projects-work-item-link w-inline-block"
                     ><h2 class="heading-style-large">
                       {{ project.project_name }}
