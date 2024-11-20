@@ -265,16 +265,31 @@
                     </div>
                   </div>
                   <div class="image-noise"></div>
-                  {% if project.first_file %}
-
-                  <video autoplay loop muted loading="lazy" class="image-cover">
-                    <source
-                      src="{{ project.first_file.file.url }}"
-                      type="video/mp4"
-                    />
-                    Your browser does not support the video tag.
-                  </video>
-                  {% endif %}</a
+                  {% if project.first_file_data %}
+                  {% if project.first_file_data.is_video %}
+                      <video
+                          autoplay
+                          loop
+                          muted
+                          loading="lazy"
+                          class="image-cover"
+                      >
+                          <source
+                              src="{{ project.first_file_data.url }}"
+                              type="video/mp4"
+                          />
+                          Your browser does not support the video tag.
+                      </video>
+                  {% elif project.first_file_data.is_image %}
+                      <img
+                          src="{{ project.first_file_data.url }}"
+                          alt="Project Image"
+                          loading="lazy"
+                          class="image-cover"
+                      />
+                  {% endif %}
+              {% endif %}
+                  </a
                 >
                 <div class="projects-work-item-content">
                   <a

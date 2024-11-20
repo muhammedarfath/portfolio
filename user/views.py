@@ -12,7 +12,15 @@ def userhome(request):
 
     for project in projects:
         project.keywords_list = [keyword.strip() for keyword in project.keyword.split(',')] if project.keyword else []
-        project.first_file = project.files.first() 
+        first_file = project.files.first()
+        if first_file:
+            project.first_file_data = {
+                'url': first_file.file.url if first_file.file else '',
+                'is_video': first_file.file.url.lower().endswith('.mp4') if first_file.file else False,
+                'is_image': first_file.file.url.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')) if first_file.file else False
+            }
+        else:
+            project.first_file_data = None
         
     for bottom in bottomprojects:
         first_file = bottom.files.first()
@@ -38,22 +46,33 @@ def userhome(request):
 
 def project_detail(request, project_id):
     project = get_object_or_404(HomepageProject, id=project_id)
-    files = project.files.all()
+    files = project.files.all()  # Retrieve all files for the project
 
-    project.first_file = files.first() if files else None
+    # Process first_file
+    first_file = files.first() if files else None
+    if first_file:
+        project.first_file_data = {
+            'url': first_file.file.url if first_file.file else '',
+            'is_video': first_file.file.url.lower().endswith('.mp4') if first_file.file else False,
+            'is_image': first_file.file.url.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')) if first_file.file else False,
+        }
+    else:
+        project.first_file_data = None
+
+    # Process other files (excluding first_file)
     project.other_files = [
         {
-            'url': file.file.url if file.file else '', 
-            'is_video': file.file.url.endswith('.mp4') if file.file else False
+            'url': file.file.url if file.file else '',
+            'is_video': file.file.url.lower().endswith('.mp4') if file.file else False,
+            'is_image': file.file.url.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')) if file.file else False,
         }
-        for file in files[1:] 
+        for file in files[1:]
     ]
 
-        
-    
+    # Process keywords
     project.keywords_list = [keyword.strip() for keyword in project.keyword.split(',')] if project.keyword else []
 
-    return render(request, 'user/project_detail.html', {'project': project, 'files': files})
+    return render(request, 'user/project_detail.html', {'project': project})
 
 
 def project_details_from_work(request, project_id):
@@ -81,7 +100,15 @@ def worklist(request):
 
     for project in projects:
         project.keywords_list = [keyword.strip() for keyword in project.keyword.split(',')] if project.keyword else []
-        project.first_file = project.files.first() 
+        first_file = project.files.first()
+        if first_file:
+            project.first_file_data = {
+                'url': first_file.file.url if first_file.file else '',
+                'is_video': first_file.file.url.lower().endswith('.mp4') if first_file.file else False,
+                'is_image': first_file.file.url.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')) if first_file.file else False
+            }
+        else:
+            project.first_file_data = None
     for bottom in bottomprojects:
             first_file = bottom.files.first()
             if first_file:
