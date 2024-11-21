@@ -54,51 +54,41 @@
     <style>
       /* Grid container with column layout for masonry effect */
       .gallery-grid {
-        column-count: 2;
-        column-gap: 15px;
+        column-count: 2; /* Number of columns */
+        column-gap: 15px; /* Space between columns */
         padding: 20px;
       }
-    
+      
+      /* Adjust columns for larger screens */
       @media (min-width: 768px) {
         .gallery-grid {
-          column-count: 3;
+          column-count: 3; /* Three columns for larger screens */
         }
       }
-    
-      /* Image styles */
-      .gallery-image {
+      
+      /* Image and video styles */
+      .gallery-image, .gallery-video {
         width: 100%;
         margin-bottom: 15px;
         border-radius: 8px;
         display: block;
-        cursor: pointer;
+        break-inside: avoid; /* Prevents images/videos from breaking across columns */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
-    
-      /* Video Wrapper */
+      
+      /* Video wrapper: to position the play icon properly */
       .video-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-      }
-    
-      /* Video Styles */
-      .gallery-video {
-        width: 100%;
-        border-radius: 8px;
+        position: relative; /* Ensures the play icon is positioned relative to this */
         display: block;
-        transition: transform 0.3s ease;
+        overflow: hidden; /* Ensures the icon stays within the boundaries of the video */
       }
-    
+      
       /* Play Icon */
       .play-icon {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        top: 50%; /* Position it at the center vertically */
+        left: 50%; /* Position it at the center horizontally */
+        transform: translate(-50%, -50%); /* Adjust to truly center */
         font-size: 3rem;
         color: white;
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
@@ -106,17 +96,17 @@
         opacity: 0;
         transition: opacity 0.3s ease;
       }
-    
+      
       /* Show play icon on hover */
       .video-wrapper:hover .play-icon {
         opacity: 1;
       }
-    
+      
       /* Play video on hover */
       .video-wrapper:hover .gallery-video {
         filter: brightness(70%); /* Adds a subtle effect when playing */
       }
-    
+      
       /* Fullscreen modal */
       .fullscreen-modal {
         display: none;
@@ -130,14 +120,14 @@
         justify-content: center;
         align-items: center;
       }
-    
+      
       .fullscreen-modal video {
         width: 90%;
         height: auto;
         max-height: 90%;
         border-radius: 8px;
       }
-    
+      
       .fullscreen-modal .close-btn {
         position: absolute;
         top: 20px;
@@ -148,7 +138,9 @@
         cursor: pointer;
         z-index: 10;
       }
+      
     </style>
+
     
   </head>
   <body class="body">
@@ -491,6 +483,7 @@
                 </div>
               </div>
             </section>
+            
             
             
             
