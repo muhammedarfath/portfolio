@@ -52,35 +52,86 @@
 
     <!-- Please keep this css code to improve the font quality-->
     <style>
-      * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+      /* Grid container with column layout for masonry effect */
+      .gallery-grid {
+        column-count: 2;
+        column-gap: 15px;
+        padding: 20px;
       }
-
-        /* Grid container with column layout for masonry effect */
+    
+      @media (min-width: 768px) {
         .gallery-grid {
-          column-count: 2; /* Number of columns */
-          column-gap: 15px;
-          padding: 20px;
+          column-count: 3;
         }
-      
-        /* Adjust columns for larger screens */
-        @media (min-width: 768px) {
-          .gallery-grid {
-            column-count: 3;
-          }
-        }
-      
-        /* Image and video styles */
-        .gallery-image {
-          width: 100%;
-          margin-bottom: 15px;
-          border-radius: 8px;
-          display: block;
-        }
-
-      
-    </style>
+      }
+    
+      /* Image styles */
+      .gallery-image {
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        display: block;
+        cursor: pointer;
+      }
+    
+      /* Video Wrapper */
+      .video-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+    
+      /* Video Styles */
+      .gallery-video {
+        width: 100%;
+        border-radius: 8px;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+    
+      /* Play Icon */
+      .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: white;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    
+      /* Show play icon on hover */
+      .video-wrapper:hover .play-icon {
+        opacity: 1;
+      }
+    
+      /* Play video on hover */
+      .video-wrapper:hover .gallery-video {
+        filter: brightness(70%); /* Adds a subtle effect when playing */
+      }
+    
+      /* Fullscreen modal */
+      .fullscreen-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+     
+    
+    
   </head>
   <body class="body">
     <div class="page-wrapper">
@@ -342,62 +393,40 @@
               </div>
             </section>
             <section class="section-project-hero-image">
-              {% if project.first_file %} {% if project.first_file_is_video %}
-              <video autoplay loop muted loading="lazy" class="image-cover">
-                <source
-                  src="{{ project.first_file.file.url }}"
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-              {% elif project.first_file_is_image %}
-              <img
-                src="{{ project.first_file.file.url }}"
-                alt="Project Image"
-                class="image-cover"
-              />
-              {% endif %} {% endif %}
+              {% if project.first_file %}
+                {% if project.first_file_is_video %}
+                  <video autoplay loop muted loading="lazy" class="image-cover" onclick="openFullscreen(this)">
+                    <source src="{{ project.first_file.file.url }}" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                {% elif project.first_file_is_image %}
+                  <img src="{{ project.first_file.file.url }}" alt="Project Image" class="image-cover" />
+                {% endif %}
+              {% endif %}
             </section>
-
+            
             <section class="section-project-details w-condition-invisible">
               <div class="padding-global">
                 <div class="padding-top padding-xlarge">
                   <div class="project-details-grid">
-                    <div
-                      id="w-node-a55d0699-96dd-445d-19e6-43f1ff59b05e-86889201"
-                      class="project-details-grid-left"
-                    >
+                    <div class="project-details-grid-left">
                       <div class="flex-horizontal-stretch">
                         <div class="heading-style-h3">(Details)</div>
                         <div class="icon-1x1-large w-embed">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M14.5895 16.0032L5.98291 7.39664L7.39712 5.98242L16.0037 14.589V7.00324H18.0037V18.0032H7.00373V16.0032H14.5895Z"
-                            ></path>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14.5895 16.0032L5.98291 7.39664L7.39712 5.98242L16.0037 14.589V7.00324H18.0037V18.0032H7.00373V16.0032H14.5895Z"></path>
                           </svg>
                         </div>
                       </div>
                     </div>
-                    <div
-                      id="w-node-a55d0699-96dd-445d-19e6-43f1ff59b063-86889201"
-                      class="line-vertical hide-tablet"
-                    ></div>
-                    <div
-                      id="w-node-a55d0699-96dd-445d-19e6-43f1ff59b064-86889201"
-                      class="project-details-grid-right"
-                    >
+                    <div class="line-vertical hide-tablet"></div>
+                    <div class="project-details-grid-right">
                       <div>
                         <div class="heading-style-h4"></div>
                         <div class="spacer-xxsmall"></div>
                         <h2 class="w-dyn-bind-empty"></h2>
                         <div class="spacer-small"></div>
-                        <div
-                          class="text-size-medium text-color-muted w-dyn-bind-empty w-richtext"
-                        ></div>
+                        <div class="text-size-medium text-color-muted w-dyn-bind-empty w-richtext"></div>
                       </div>
                       <div class="line"></div>
                       <div>
@@ -405,9 +434,7 @@
                         <div class="spacer-xxsmall"></div>
                         <h2 class="w-dyn-bind-empty"></h2>
                         <div class="spacer-small"></div>
-                        <div
-                          class="text-size-medium text-color-muted w-dyn-bind-empty w-richtext"
-                        ></div>
+                        <div class="text-size-medium text-color-muted w-dyn-bind-empty w-richtext"></div>
                       </div>
                       <div class="line"></div>
                       <div>
@@ -415,41 +442,22 @@
                         <div class="spacer-xxsmall"></div>
                         <h2 class="w-dyn-bind-empty"></h2>
                         <div class="spacer-small"></div>
-                        <div
-                          class="text-size-medium text-color-muted w-dyn-bind-empty w-richtext"
-                        ></div>
+                        <div class="text-size-medium text-color-muted w-dyn-bind-empty w-richtext"></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </section>
-
+            
             {% for file in project.other_files %}
-            {% if not file.is_video %}
-            <section
-              class="section-project-hero-image"
-              style="
-                display: flex;
-                flex-direction: column; 
-              "
-              >
-      
-                <img
-                  src="{{ file.url }}"
-                  alt="Project Image"
-                  class="image-cover"
-                  style="
-                    width: 100%; 
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                  "
-                />
-            </section>
+              {% if not file.is_video %}
+                <section class="section-project-hero-image" style="display: flex; flex-direction: column;">
+                  <img src="{{ file.url }}" alt="Project Image" class="image-cover" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" />
+                </section>
               {% endif %}
             {% endfor %}
-          
-          
-
+            
             <section class="section-project-details">
               <div class="padding-global">
                 <div class="padding-top padding-xlarge">
@@ -457,16 +465,13 @@
                     <div class="gallery-grid">
                       {% for file in project.other_files %}
                         {% if file.is_video %}
-                          <video
-                            autoplay
-                            loop
-                            muted
-                            loading="lazy"
-                            class="gallery-image"
-                          >
-                            <source src="{{ file.url }}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                          </video>
+                          <div class="video-wrapper">
+                            <video loop muted loading="lazy" class="gallery-video" onclick="openFullscreen(this)">
+                              <source src="{{ file.url }}" type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                            <div class="play-icon">▶</div>
+                          </div>
                         {% endif %}
                       {% endfor %}
                     </div>
@@ -474,7 +479,6 @@
                 </div>
               </div>
             </section>
-            
 
             <section class="section-project-gallery w-condition-invisible">
               <div class="padding-global">
@@ -750,6 +754,35 @@
 
     <!--<script src= "https://s3.us-west-2.amazonaws.com/files.thedigitalpanda.com/truaq/patch.js"></script>
 -->
+<div id="fullscreen-modal" class="fullscreen-modal">
+  <span class="close-btn" onclick="closeFullscreen()">&times;</span>
+  <video id="fullscreen-video" controls autoplay></video>
+</div>
+
+<script>
+  const fullscreenModal = document.getElementById("fullscreen-modal");
+  const fullscreenVideo = document.getElementById("fullscreen-video");
+
+  // Open fullscreen modal
+  function openFullscreen(videoElement) {
+    fullscreenModal.style.display = "flex";
+    fullscreenVideo.src = videoElement.querySelector("source").src;
+  }
+
+  // Close fullscreen modal
+  function closeFullscreen() {
+    fullscreenModal.style.display = "none";
+    fullscreenVideo.pause();
+    fullscreenVideo.src = "";
+  }
+
+  // Close the fullscreen modal when clicking outside the video
+  window.addEventListener("click", (event) => {
+    if (event.target === fullscreenModal) {
+      closeFullscreen();
+    }
+  });
+</script>
     <script>
       setTimeout(function () {
         //Check if 'w-editor' class is NOT present on the document element
