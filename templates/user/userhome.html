@@ -814,7 +814,7 @@
                         {% if project.first_file_data %}
                         {% if project.first_file_data.is_video %}
                             <video
-                                
+                                autoplay
                                 loop
                                 muted
                                 loading="lazy"
@@ -983,6 +983,7 @@
                           {% if bottom.first_file.is_video %}
                             <!-- Display video if the file is a video -->
                             <video 
+                              autoplay
                               class="image-cover" 
                               controls 
                               muted 
