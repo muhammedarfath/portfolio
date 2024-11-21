@@ -12,10 +12,10 @@
 		<meta content="Bent, a minimal Portfolio Webflow Template, is a perfect fit for your personal portfolio, creatives, designers, freelancers, agencies, and design studios." name="description"/>
 		<meta content="Contact - Bent - Webflow Ecommerce Website Template" property="og:title"/>
 		<meta content="Bent, a minimal Portfolio Webflow Template, is a perfect fit for your personal portfolio, creatives, designers, freelancers, agencies, and design studios." property="og:description"/>
-		<meta content="https://cdn.prod.website-files.com/64589fb989b2b33c593db89d/6460f30d30fbaaf79ee198d0_bent-search-result-preview.webp" property="og:image"/>
+		<meta content="" property="og:image"/>
 		<meta content="Contact - Bent - Webflow Ecommerce Website Template" property="twitter:title"/>
 		<meta content="Bent, a minimal Portfolio Webflow Template, is a perfect fit for your personal portfolio, creatives, designers, freelancers, agencies, and design studios." property="twitter:description"/>
-		<meta content="https://cdn.prod.website-files.com/64589fb989b2b33c593db89d/6460f30d30fbaaf79ee198d0_bent-search-result-preview.webp" property="twitter:image"/>
+		<meta content="" property="twitter:image"/>
 		<meta property="og:type" content="website"/>
 		<meta content="summary_large_image" name="twitter:card"/>
 		<meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -239,20 +239,46 @@ body:hover .cursor {opacity:1.0;}
 			</div>
 			<div>
 				<div class="form-wrapper w-form">
-					<form id="contact-form" name="wf-form-Contact-Form" data-name="Contact Form" method="get" class="form" data-wf-page-id="6527a38e362cc612868891fb" data-wf-element-id="3c8b4d15-e451-2d61-02e5-0b5a337b7214">
-						<div class="form-field-wrapper">
-							<input class="form-input w-input" maxlength="256" name="Name" data-name="Name" placeholder="Your Name" type="text" id="name" required=""/>
-						</div>
-						<div class="form-field-wrapper">
-							<input class="form-input w-input" maxlength="256" name="Email" data-name="Email" placeholder="Your Email" type="email" id="Email-2" required=""/>
-						</div>
-						<div class="form-field-wrapper">
-							<textarea id="Message-2" name="Message" maxlength="5000" data-name="Message" placeholder="Your Message" required="" class="form-input is-text-area w-input"></textarea>
-						</div>
-						<div class="contact-form-button-wrapper">
-							<input type="submit" data-wait="Please wait..." class="button primary anim8_cursor-grow w-button" value="Send Message"/>
-						</div>
-					</form>
+          <form id="contact-form" method="post" action="{% url 'submit_contact_form' %}" class="form">
+            {% csrf_token %}
+            <div class="form-field-wrapper">
+                <input
+                    class="form-input w-input"
+                    name="name"
+                    placeholder="Your Name"
+                    type="text"
+                    id="name"
+                    required
+                />
+            </div>
+            <div class="form-field-wrapper">
+                <input
+                    class="form-input w-input"
+                    name="email"
+                    placeholder="Your Email"
+                    type="email"
+                    id="email"
+                    required
+                />
+            </div>
+            <div class="form-field-wrapper">
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Your Message"
+                    required
+                    class="form-input is-text-area w-input"
+                ></textarea>
+            </div>
+            <div class="contact-form-button-wrapper">
+                <input
+                    type="submit"
+                    class="button primary anim8_cursor-grow w-button"
+                    value="Send Message"
+                />
+            </div>
+        </form>
+             
 					<div class="form-message-success w-form-done">
 						<div class="text-meta-small">Thank you! Your submission has been received!</div>
 					</div>

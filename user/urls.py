@@ -11,6 +11,7 @@ urlpatterns = [
     path('worklist/', views.worklist, name='worklist'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact_page, name='contact'),
+    path('submit-contact-form/', views.contact_form_submit, name='submit_contact_form'),
 
 
 ]

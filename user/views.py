@@ -1,7 +1,10 @@
 import random
 from django.shortcuts import get_object_or_404, render
 from adminpanel.models import About, BottomProject, UserProfile,HomepageProject, WorkpageProject
-
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 # Create your views here.
 
 
@@ -95,6 +98,7 @@ def project_details_from_work(request, project_id):
     return render(request, 'user/project_detail.html', {'project': project, 'files': files})
 
 def worklist(request):
+    last_profile = UserProfile.objects.order_by('-id').first() 
     projects = HomepageProject.objects.all().prefetch_related('files').order_by('id')
     bottomprojects = BottomProject.objects.all().prefetch_related('files')
 
@@ -119,8 +123,8 @@ def worklist(request):
                 bottom.first_file = None        
     context = {
         'projects': projects,
-        'bottomprojects': bottomprojects  
-
+        'bottomprojects': bottomprojects,  
+        'profile': last_profile,
     }
     return render(request, 'user/worklist.html',context)
 
@@ -191,7 +195,24 @@ def moreworks(request, bottom_id):
     
     
 
-    
-    
-    
-    
+
+@csrf_protect
+def contact_form_submit(request):
+    if request.method == 'POST':
+        try:
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            message = request.POST.get('message')
+
+            # Sending the email
+            send_mail(
+                subject=f"New Contact Form Submission from {name}",
+                message=f"Name: {name}\nEmail: {email}\nMessage:\n{message}",
+                from_email=email,  
+                recipient_list=['akbarshabeer25@gmail.com'],  
+            )
+            return JsonResponse({'success': 'Message sent successfully.'}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)

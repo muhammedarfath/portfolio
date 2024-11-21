@@ -6648,8 +6648,8 @@ figcaption {
 
 .nav-cursor.nav-about {
   z-index: -1;
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -6657,12 +6657,11 @@ figcaption {
 
 .nav-cursor.nav-contact {
   z-index: -1;
-  width: 8rem;
-  height: 7rem;
+  width: 6rem;
+  height: 6rem;
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
-  top: 30%;
 }
 
 .home_hero-h1-wrap {

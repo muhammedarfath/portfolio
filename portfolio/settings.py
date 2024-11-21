@@ -150,3 +150,10 @@ LOGIN_URL = 'adminpanel:login'  # Replace with the correct path to your login vi
 
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Use your email provider's SMTP server
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'akbarshabeer25@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'pupdkghwjhrwlljx'  # Replace with your email password
+

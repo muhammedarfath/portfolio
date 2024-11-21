@@ -9,6 +9,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/adminhome.css' %}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Modal Header Background */
+.modal-header {
+  background-color: #007bff;
+  color: #fff;
+  border-bottom: 2px solid #0056b3;
+}
+
+/* Input Focus Effect */
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Section Headings */
+.text-primary {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* File Input Style */
+.form-control-file {
+  margin-top: 0.5rem;
+}
+
+/* Modal Footer Buttons */
+.modal-footer .btn-primary {
+  background-color: #007bff;
+  border-color: #0056b3;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+    </style>
 </head>
 
 <body>
@@ -123,73 +160,97 @@
 
 
 
-          <!--profile edit-modal-->
-          <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" enctype="multipart/form-data" action="{% url 'adminpanel:edit_profile' %}">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" value="{{ profile.name }}" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea name="description" class="form-control" id="description" rows="3" placeholder="Enter a short description" required>
-                                    {{ profile.description }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Profile Image</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="image" class="form-control-file" />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">NavBar Image</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_image" class="form-control-file" />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Work hover image</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_hover_images1" class="form-control-file"  />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">About hover image</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_hover_images2" class="form-control-file"  />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Contact hover image</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_hover_images3" class="form-control-file"  />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Motion graphics</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_body_images1" class="form-control-file" />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Video Editing</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_body_images2" class="form-control-file" />
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Graphics</label>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="nav_body_images3" class="form-control-file" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="submit" name="edit_profile" class="btn btn-primary">
-                                    Save changes
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<!-- Profile Edit Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post" enctype="multipart/form-data" action="{% url 'adminpanel:edit_profile' %}">
+            {% csrf_token %}
+            <!-- Profile Section -->
+            <h6 class="text-primary border-bottom pb-2 mb-4">Profile Information</h6>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" value="{{ profile.name }}" required />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="description">Description</label>
+                <textarea name="description" class="form-control" id="description" rows="3" placeholder="Enter a short description" required>{{ profile.description }}</textarea>
+              </div>
             </div>
-          </div>
+  
+            <!-- File Upload Section -->
+            <h6 class="text-primary border-bottom pb-2 mb-4">Images</h6>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="image">Profile Image</label>
+                <input type="file" name="image" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nav_image">NavBar Image</label>
+                <input type="file" name="nav_image" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="nav_hover_images1">Work Hover Image</label>
+                <input type="file" name="nav_hover_images1" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="nav_hover_images2">About Hover Image</label>
+                <input type="file" name="nav_hover_images2" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="nav_hover_images3">Contact Hover Image</label>
+                <input type="file" name="nav_hover_images3" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+            </div>
+  
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="nav_body_images1">Motion Graphics</label>
+                <input type="file" name="nav_body_images1" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="nav_body_images2">Video Editing</label>
+                <input type="file" name="nav_body_images2" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="nav_body_images3">Graphics</label>
+                <input type="file" name="nav_body_images3" accept="image/png, image/jpeg" class="form-control-file" />
+              </div>
+            </div>
+  
+            <!-- Work Section -->
+            <h6 class="text-primary border-bottom pb-2 mb-4">Work Information</h6>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="work_heading">Work Heading</label>
+                <input type="text" name="work_heading" class="form-control" id="work_heading" placeholder="Enter your work heading" value="{{ profile.work_heading }}" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="work_description">Work Description</label>
+                <textarea name="work_description" class="form-control" id="work_description" rows="3" placeholder="Enter your work description">{{ profile.work_description }}</textarea>
+              </div>
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" name="edit_profile" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
           
           <!--add-project form --> 
           <form action="{% url 'adminpanel:add_project' %}" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate" enctype="multipart/form-data">

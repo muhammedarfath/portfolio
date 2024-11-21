@@ -6,6 +6,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    work_heading = models.TextField(blank=True, null=True)
+    work_description = models.TextField(blank=True, null=True)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     nav_image = models.ImageField(upload_to='nav_images/', blank=True, null=True)
     nav_hover_images1 = models.ImageField(upload_to='nav_hover_images1/', blank=True, null=True)

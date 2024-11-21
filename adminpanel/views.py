@@ -85,6 +85,16 @@ def edit_profile(request):
                 if profile.nav_image:
                     profile.nav_image.delete()  
                 profile.nav_image = new_nav_image
+                
+                
+            new_work_heading = request.POST.get('work_heading', None)
+            if new_work_heading and new_work_heading != profile.work_heading:
+                profile.work_heading = new_work_heading
+
+            new_work_description = request.POST.get('work_description', None)
+            if new_work_description and new_work_description != profile.work_description:
+                profile.work_description = new_work_description
+                            
 
             new_nav_hover_images1 = request.FILES.get('nav_hover_images1', None)
             if new_nav_hover_images1 and new_nav_hover_images1 != profile.nav_hover_images1:
