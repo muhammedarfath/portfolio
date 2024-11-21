@@ -235,8 +235,17 @@ body:hover .cursor {opacity:1.0;}
 				<h1 class="heading-style-large">Let’s do something cool</h1>
 			</div>
 			<div>
+        {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 				<div class="form-wrapper w-form">
-          <form id="contact-form" method="post" action="{% url 'submit_contact_form' %}" class="form">
+          <form id="contact-form" method="post" action="{% url 'user:submit_contact_form' %}" class="form">
             {% csrf_token %}
             <div class="form-field-wrapper">
                 <input

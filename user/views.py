@@ -194,6 +194,8 @@ def moreworks(request, bottom_id):
     )
     
     
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 @csrf_protect
@@ -211,8 +213,15 @@ def contact_form_submit(request):
                 from_email=email,  
                 recipient_list=['akbarshabeer25@gmail.com'],  
             )
-            return JsonResponse({'success': 'Message sent successfully.'}, status=200)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
 
-    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+            # Add a success message
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect('user:contact')  # Redirect to the contact page or any other page
+        except Exception as e:
+            # Add an error message
+            messages.error(request, "There was an error sending your message. Please try again.")
+            return redirect('user:contact')  # Redirect back to the contact page
+
+    # If the request is not POST
+    messages.error(request, "Invalid request method.")
+    return redirect('user:contact')
