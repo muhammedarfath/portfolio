@@ -5943,8 +5943,8 @@ figcaption {
 }
 
 .section-project-hero-image {
-  height: 90vh;
-  max-height: 75vw;
+  height: auto;
+  /* max-height: auto; */
   position: relative;
   overflow: hidden;
 }
@@ -7655,7 +7655,7 @@ figcaption {
   }
 
   .section-project-hero-image {
-    height: 75vw;
+    height: auto;
   }
 
   .project-details-grid {

@@ -492,7 +492,7 @@
             {% for file in project.other_files %}
               {% if not file.is_video %}
                 <section class="section-project-hero-image" style="display: flex; flex-direction: column;">
-                  <img src="{{ file.url }}" alt="Project Image" class="image-cover" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" />
+                  <img src="{{ file.url }}" alt="Project Image" class="image-cover" style="width: 100%; object-fit: contain; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" />
                 </section>
               {% endif %}
             {% endfor %}
